@@ -12,10 +12,8 @@
 
 	public function __construct($config=array('lang'=>'')){
 
-
 		$lang = $config['lang'];
 		
-
 
         $this->CI =& get_instance();
 
@@ -34,7 +32,8 @@
 		        ),
 		      
 		);
-      	$slang = $this->CI->session->userdata('lang');     
+      	$slang = $this->CI->session->userdata('lang');
+      
      
       	
       	 	
@@ -57,17 +56,10 @@
   			$this->currentL = $lang;
       	}elseif(false==$lang && false==$slang){
        		$this->CI->load->library('user_agent');
-       		$lang = $this->CI->agent->languages();
-       		if(!empty($lang[1]) && preg_match('/-/', $lang[1])){
-       			$lang1 = explode('-', $lang[1]);
-       			$chooseL = $lang1[0];
-       		
-       		}else{
-       			$chooseL = $lang[1];
-       		}
-       		$this->currentL = $chooseL;
+       		$lang = $this->CI->agent->languages();       		
+       		$this->currentL = $lang[1];
        		$newdata = array(
-                'lang'  => $chooseL                  
+                'lang'  => $lang[1]                  
             );
   			$this->CI->session->set_userdata($newdata);
       	}
@@ -83,7 +75,7 @@
 
 
 	public function sign_up(){
-		
+	
 
 		$ident = $this->languages[$this->currentL];
 		$currentL = $this->currentL;	
